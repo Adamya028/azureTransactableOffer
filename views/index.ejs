@@ -31,7 +31,6 @@
             "http://localhost:3000/api/azure/getOfferDetails",
             payload
           );
-          await getSubData()
           console.log(res.data);
           let subscriptionId=res.data.id
           document.getElementById("SubId").innerHTML = JSON.stringify(res.data.id, null, 4);
@@ -45,18 +44,18 @@
 
 
 
-          function clickHandler(this) {
+          function clickHandler() {
           // let payload = { token: marketPlaceToken };
 
           // let res = await axios.post(
           //   "http://localhost:3000/api/azure/getOfferDetails",
           //   payload
           // );
-            console.log("hello")
+            
           
         }
         }
-        
+        getSubData()
       } catch (e) {
         console.log(e);
       }
