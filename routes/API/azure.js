@@ -111,4 +111,41 @@ let {token}=req.body
   }
 );
 
+router.post(
+  "/Activate",
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+ //Get token for azure account
+    let azureToken = await getToken();
+   let {subscriptionId,plan}=req.body
+   console.log()
+
+  
+   //Activate subscription 
+   try {
+    let url = `https://marketplaceapi.microsoft.com/api/saas/subscriptions/${subscriptionId}/activate?api-version=2018-08-31`;
+   
+    //axios request for Activation
+    let response = await axios({
+      data: {
+        planId:plan
+    },
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization":`Bearer ${azureToken}`
+      },
+      url: url,
+      method: "POST",
+    });
+    res.send(response.data)
+  } catch (error) {
+    console.log(error);
+    var error = JSON.stringify(error);
+   console.log("Could not Actiavate");
+  }
+  }
+);
 module.exports = router;

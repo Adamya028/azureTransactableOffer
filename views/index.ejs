@@ -20,9 +20,8 @@
     <h4>autoRenew</h4><div id="autoRenew"></div>
     <button type="button" onclick="clickHandler()">Activate my Subscription!</button>
     <script>
-      try {
-        
-        async function getSubData() {
+      let subscription={}
+      async function getSubData() {
           let Token = window.location.href;
           let marketPlaceToken = decodeURIComponent(Token).toString().slice(29);
           let payload = { token: marketPlaceToken };
@@ -31,8 +30,8 @@
             "http://localhost:3000/api/azure/getOfferDetails",
             payload
           );
-          console.log(res.data);
-          let subscriptionId=res.data.id
+          // console.log(res.data);
+          let subscription=res.data.id
           document.getElementById("SubId").innerHTML = JSON.stringify(res.data.id, null, 4);
           document.getElementById("SubName").innerHTML = JSON.stringify(res.data.subscriptionName, null, 4);
           document.getElementById("offerId").innerHTML = JSON.stringify(res.data.offerId, null, 4);
@@ -41,24 +40,26 @@
           document.getElementById("saasSubscriptionStatus").innerHTML = JSON.stringify(res.data.subscription.saasSubscriptionStatus, null, 4);
           document.getElementById("emailId").innerHTML = JSON.stringify(res.data.subscription.purchaser.emailId, null, 4);
           document.getElementById("autoRenew").innerHTML = JSON.stringify(res.data.subscription.autoRenew, null, 4);
+let id= res.data
+return id }
+subscription=getSubData()
+      
 
+async function clickHandler(){
+  subscription=await getSubData()
+  console.log(subscription.id,subscription.planId)
+ 
+         
+          let payload = { subscriptionId:subscription.id,plan: subscription.planId };
 
+          let res = await axios.post(
+            "http://localhost:3000/api/azure/Activate",
+            payload
+          );
+  
 
-          function clickHandler() {
-          // let payload = { token: marketPlaceToken };
+}
 
-          // let res = await axios.post(
-          //   "http://localhost:3000/api/azure/getOfferDetails",
-          //   payload
-          // );
-            
-          
-        }
-        }
-        getSubData()
-      } catch (e) {
-        console.log(e);
-      }
     </script>
     
     
