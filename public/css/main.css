@@ -1,0 +1,33 @@
+body {
+    background-color: #eee;
+    font-size: 26px;
+}
+
+.wrapper {
+    width: 700px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 10px;
+}
+
+
+header, footer {
+    background-color: rgb(248, 255, 248);
+    padding: 20px;
+}
+
+main {
+    background-color: cornsilk;
+    padding: 20px;
+    font-size: 10px;
+}
+
+button{
+    background-color: rgb(40, 217, 20);
+    padding: 22px;
+}
+.layout-sidebar {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 2fr 1fr;
+}
