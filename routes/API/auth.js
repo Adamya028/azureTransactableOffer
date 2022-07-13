@@ -26,9 +26,7 @@ router.post(
   "/",
   [
     check("email", "please Include a valid email").isEmail(),
-
     check("password", "Please is required").exists(),
-
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -47,7 +45,7 @@ router.post(
       }
       //verify password
       const isMatch = await bcrypt.compare(password, user.password);
-
+      
       if (!isMatch) {
         return res
           .status(400)
@@ -65,12 +63,15 @@ router.post(
         { expiresIn: 36000 },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          let obj={
+            subId:user.subscriptionId,
+            token
+          }
+          res.status(200).send(obj);
         }
       );
 
-      /* console.log(req.body);
-        res.send("user registered"); */
+    
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server error");

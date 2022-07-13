@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <h1>Welcome to Powerboard you are now autheticated user</h1>
+
+    <p>
+      You can deactivate you subscription by the button below
+    </p>
+
+   
+    <button type="button" onclick="clickHandler()">
+      Deactivate my Subscription!
+    </button>
+    <script>
+
+
+     async function clickHandler(){
+      let subID=localStorage.getItem("SubId");
+      // console.log(subID)
+
+      try {
+          let payload = {
+            SubId: subID,
+          };
+          
+          let res = await axios.post("http://localhost:3000/api/azure/Deactivate", payload);               
+          let res1 = await axios.post("http://localhost:3000/api/users/delete", payload);
+          if(res.status==200){console.log("Subscription Deactivated")}
+          if(res1.status==200){window.location.href = "http://localhost:3000/about";}
+          
+         
+        } catch (e) {
+         console.log(e)
+        }
+     }
+    </script>
+  </body>
+</html>

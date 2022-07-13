@@ -28,11 +28,23 @@ app.use("/api/users", require("./routes/API/users"));
 app.use("/api/auth", require("./routes/API/auth"));
 app.use("/api/azure", require("./routes/API/azure"));
 
-
-app.get('', (req, res) => {
+//Landing Page
+app.get('/', (req, res) => {
     
-    res.render('index', { title: 'Home Page'})
+    res.render('index', { title: 'Configuration Page'})
 })
+
+//Login page
+app.get('/login', (req, res) => {
+       res.render('login', { title: 'Login Page'})
+})
+app.get('/dashboard', (req, res) => {
+    res.render('dashboard', { title: 'dashboard'})
+})
+app.get('/about', (req, res) => {
+    res.render('about', { title: 'About'})
+})
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => console.log(`server started on port ${PORT}`));

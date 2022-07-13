@@ -15,8 +15,10 @@ const UserSchema =new mongoose.Schema({
         require :true,
         
     },
-    avatar:{
-        type :String
+    subscriptionId:{
+        type :String,
+        require :true,
+        unique:true
     },
     date :{
         type : Date,
